@@ -3,6 +3,9 @@ const app = express()
 const port = 5000
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
+
+const config = require('./config/dev');
+
 const { User } = require("./models/User");
 
 // application/x-www-form-urlencoded
@@ -12,7 +15,7 @@ app.use(bodyParser.json()); // 이 부분에 오타가 있었는데 어떻게 �
 app.use(cookieParser());
 
 const mongoose = require('mongoose')
-mongoose.connect('mongodb+srv://jinhwa:wlsghk@reactyoutube.vrhnm.mongodb.net/ReactYoutube?retryWrites=true&w=majority', {
+mongoose.connect(config.mongoURI, {
     useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true, useFindAndModify: false
 }).then(()=> console.log('MongoDB Connected..'))
 .catch(err => console.log(err))
@@ -38,6 +41,7 @@ app.post('/register', (req, res)=> {
 
 
 app.post('/login', (req, res) => {
+
     User.findOne({ email: req.body.email }, (err,user) => {
         if(!user){
             return res.json({
