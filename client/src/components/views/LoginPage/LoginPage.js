@@ -1,6 +1,10 @@
+import Axios from 'axios'
 import React, { useState } from 'react'
+import { useDispatch } from 'react-redux';
+import { loginUser } from '../../../_actions/user_action';
 
 function LoginPage() {
+    const dispatch = useDispatch();
 
     const [Email, setEmail] = useState("") //initialState 이건 처음 input창에서 어떻게 보이느냐의 .. 내용이다
     const [Password, setPassword] = useState("")
@@ -15,8 +19,15 @@ function LoginPage() {
 
     const onSubmitHandler = (event) => {
         event.preventDefault(); // 이걸 넣어줘야 submit 했을때 새로고침되서 전송되는 데이터를 유지해 작업할 수 있다.
-        console.log('Email', Email)
-        console.log('Password', Password)
+
+        let body = {
+            email: Email,
+            password: Password
+        }
+
+        dispatch(loginUser(body))
+
+
     }
 
     return (
