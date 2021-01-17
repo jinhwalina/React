@@ -1,9 +1,10 @@
-import Axios from 'axios'
+//import Axios from 'axios'
 import React, { useState } from 'react'
 import { useDispatch } from 'react-redux';
 import { loginUser } from '../../../_actions/user_action';
+import { withRouter } from 'react-router-dom'; // type 에러 중 push가 안될때, 위에는 이 코드를, 아래는 export 코드를 추가해줬다.
 
-function LoginPage() {
+function LoginPage(props) {
     const dispatch = useDispatch();
 
     const [Email, setEmail] = useState("") //initialState 이건 처음 input창에서 어떻게 보이느냐의 .. 내용이다
@@ -26,6 +27,13 @@ function LoginPage() {
         }
 
         dispatch(loginUser(body))
+            .then(response => {
+                if(response.payload.loginSuccess){
+                    props.history.push('/')
+                } else {
+                    alert('Error')
+                }
+            })
 
 
     }
@@ -51,4 +59,4 @@ function LoginPage() {
     )
 }
 
-export default LoginPage
+export default withRouter(LoginPage)
