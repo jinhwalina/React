@@ -1,16 +1,15 @@
-import logo from './logo.svg';
+
 import {
   BrowserRouter as Router,
   Switch,
-  Route,
-  Link
+  Route
 } from "react-router-dom";
-// import './App.css';
+// import './css';
 
 import LandingPage from './components/views/LandingPage/LandingPage';
 import LoginPage from './components/views/LoginPage/LoginPage';
 import RegisterPage from './components/views/RegisterPage/RegisterPage';
-
+import Auth from './hoc/auth'
 
 function App() {
   return (
@@ -26,14 +25,9 @@ function App() {
         of them to render at a time
       */}
       <Switch>
-        <Route exact path="/" component={LandingPage}/>
-        {/* 이런식으로도 한줄로 표현할 수 있다!  */}
-        <Route path="/login">
-          <LoginPage />
-        </Route>
-        <Route path="/register">
-          <RegisterPage />
-        </Route>
+        <Route exact path="/" component={Auth(LandingPage, null, true)}/>
+        <Route exact path="/login" component={Auth(LoginPage, false)} />
+        <Route exact path="/register" component={Auth(RegisterPage, false)} />
       </Switch>
     </div>
   </Router>
