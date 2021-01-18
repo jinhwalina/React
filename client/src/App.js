@@ -10,6 +10,7 @@ import LandingPage from './components/views/LandingPage/LandingPage';
 import LoginPage from './components/views/LoginPage/LoginPage';
 import RegisterPage from './components/views/RegisterPage/RegisterPage';
 import Auth from './hoc/auth'
+import VideoUploadPage from "./components/views/VideoUploadPage/VideoUploadPage" // 강사님이 쓰신 경로랑은 현재 좀 다름
 
 function App() {
   return (
@@ -28,6 +29,7 @@ function App() {
         <Route exact path="/" component={Auth(LandingPage, null, true)}/>
         <Route exact path="/login" component={Auth(LoginPage, false)} />
         <Route exact path="/register" component={Auth(RegisterPage, false)} />
+        <Route exact path="/video/upload" component={Auth(VideoUploadPage, true)} />
       </Switch>
     </div>
   </Router>
